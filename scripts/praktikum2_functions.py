@@ -22,6 +22,60 @@ def closing():
 #######################
 # YOUR FUNCTIONS HERE #
 #######################
+def forward(speed,duration):
+    for i in range(0,duration):
+      vel_msg.linear.x = speed
+      vel_msg.linear.y = 0 
+      vel_msg.angular.z = 0 
+      velocity_publisher.publish(vel_msg)
+      rospy.sleep(0.1) 
+def right(speed,duration):
+    for i in range(0,duration):
+      vel_msg.linear.x = 0
+      vel_msg.linear.y = speed 
+      vel_msg.angular.z = 0 
+      velocity_publisher.publish(vel_msg)
+      rospy.sleep(0.1)
+def left(speed,duration):
+    for i in range(0,duration):
+      vel_msg.linear.x = 0
+      vel_msg.linear.y = speed 
+      vel_msg.angular.z = 0 
+      velocity_publisher.publish(vel_msg)
+      rospy.sleep(0.1)
+def back(speed,duration):
+    for i in range(0,duration):
+      vel_msg.linear.x = speed
+      vel_msg.linear.y = 0 
+      vel_msg.angular.z = 0 
+      velocity_publisher.publish(vel_msg)
+      rospy.sleep(0.1)
+def around(speed,duration):
+    for i in range(0,duration):
+      vel_msg.linear.x = 0
+      vel_msg.linear.y = 0 
+      vel_msg.angular.z = speed 
+      velocity_publisher.publish(vel_msg)
+      rospy.sleep(0.1)
+def aroundleft(xspeed,zspeed,duration):
+    for i in range(0,duration):
+      vel_msg.linear.x = xspeed
+      vel_msg.linear.y = 0 
+      vel_msg.angular.z = zspeed 
+      velocity_publisher.publish(vel_msg)
+      rospy.sleep(0.1)
+def aroundright(xspeed,zspeed,duration):
+    for i in range(0,duration):
+      vel_msg.linear.x = xspeed
+      vel_msg.linear.y = 0 
+      vel_msg.angular.z = zspeed 
+      velocity_publisher.publish(vel_msg)
+      rospy.sleep(0.1)
+
+
+
+
+
 
 
 ###########################
@@ -44,11 +98,16 @@ def move():
         ########################
         # YOUR CODE HERE START #
         ########################
-        vel_msg.linear.x = 0
-        vel_msg.linear.y = 0
-        vel_msg.angular.z = 0
-        velocity_publisher.publish(vel_msg)
-        rospy.sleep(0.1)
+        forward(0.4,30)
+        right(0.4,30)
+        left(-0.3,30)
+        back (-0.4,30)
+        around(0.8,30) 
+        aroundleft(-0.3,-0.3,100)
+        aroundright(0.3,-0.3,100)
+        
+        
+ 
         ######################
         # YOUR CODE HERE END #
         ######################
