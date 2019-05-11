@@ -10,8 +10,8 @@ import numpy as np
 last_heartbeat = 0
 
 MAX_X_SPEED = 0.5
-MAX_Y_SPEED = 0.5
-MAX_Z_SPEED = 2
+MAX_Y_SPEED = 0.8
+MAX_Z_SPEED = 0.5
 
 
 # IMPLEMENT THESE FUNCTIONS
@@ -20,31 +20,31 @@ MAX_Z_SPEED = 2
 
 
 def keep_distance(x, y, z, roll, pitch, yaw, twist):
-    if x> 0.2:
-        twist.linear.x = 0.2
-    else:
-        twist.linear.x = -0.2
-    return twist
+    error= x - 0.6
+    vel = error * 1.3
+    twist.linear.x = vel    
+    return twist   
+   
 
 # TASK 2
 
 
 def keep_center(x, y, z, roll, pitch, yaw, twist):
-    if y>0.01:
-        twist.linear.y = 0.2
-    else:
-        twist.linear.y = -0.2
-    return twist
+    error= y - 0
+    vel = error * 1.3
+    twist.linear.y = vel    
+    return twist  
+    
 
 # TASK 3
 
 
 def turn_towards_ar(x, y, z, roll, pitch, yaw, twist):
-    if yaw> -1.5 :
-        twist.angular.z = 0.4
-    else:
-        twist.angular.z = -0.4
-    return twist
+    error= yaw + 1.5
+    vel = error * 1.3
+    twist.angular.z = vel    
+    return twist  
+    
 
 
 def callback(data):
@@ -73,7 +73,7 @@ def callback(data):
         rospy.loginfo("RPY: %s %s %s", roll, pitch, yaw)
 
         # Change this to your marker ID
-        if marker.id == 9:
+        if marker.id == 8:
             global cmd_vel_pub
             last_heartbeat = rospy.get_time()
 
@@ -96,7 +96,7 @@ def callback(data):
 
 def timer_callback(event):
     global last_heartbeat
-    if (rospy.get_time() - last_heartbeat) >= 0.1:
+    if (rospy.get_time() - last_heartbeat) >= 0.3:
         cmd_vel_pub.publish(Twist())
 
 
